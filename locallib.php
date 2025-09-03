@@ -151,7 +151,6 @@ class assign_submission_forms extends assign_submission_plugin {
             }else{
                 $needhiddenfield = true;
             }
-
             $mform->addElement($field['type'], $fieldname, $field['name'], $options);
 
             // Add required validation if field is marked as required

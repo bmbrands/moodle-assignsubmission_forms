@@ -156,9 +156,10 @@ class forms {
         let hiddenfield = '';
         let data = '';
         let value = '';
+        let statusdiv = '';
 
         if(field.type == 'textarea') {
-            const statusdiv = document.getElementById(field.dataset.fieldid + '-status');
+            statusdiv = document.getElementById(field.dataset.fieldid + '-status');
             statusdiv.classList.add('saving');
         }else if(field.type == 'select-one') {
             //check if there is "[day]", "[month]" or "[year]"

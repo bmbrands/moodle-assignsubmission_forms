@@ -53,7 +53,7 @@ class forms {
                 'options' => ['startyear' => 2000, 'stopyear' => 2030]
             ],
             [
-                'name' => 'checkbox',
+                'name' => 'advcheckbox',
                 'label' => get_string('fieldtype_checkbox', 'assignsubmission_forms'),
                 'options' => []
             ],
