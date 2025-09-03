@@ -118,13 +118,9 @@ class assign_submission_forms extends assign_submission_plugin {
         $mform->addElement('hidden', 'instanceid', $this->assignment->get_instance()->id);
         $mform->setType('instanceid', PARAM_INT);
 
-        $validtypes = ['text', 'textarea', 'date', 'html'];
-        $defaultoptions = [
-            'text' => ['size' => '140'],
-            'textarea' => ['rows' => 10, 'cols' => 50],
-            'date' => ['startyear' => 2000, 'stopyear' => 2030],
-            'html' => [],
-        ];
+        $fieldtypes = forms::get_valid_fieldtypes();
+        $validtypes = array_column($fieldtypes, 'name');
+
 
         // Add the fields to the form.
         foreach ($fields as $field) {
@@ -137,9 +133,21 @@ class assign_submission_forms extends assign_submission_plugin {
                 $mform->addElement('html', $field['name'], $field['name']);
                 continue;
             }
-            $options = $defaultoptions[$fieldtype] ?? [];
-            $options['data-fieldid'] = $field['id'];
-            $options['data-assignmentid'] = $this->assignment->get_default_instance()->id;
+
+            // Find the matching field type configuration
+            $fieldtypeconfig = null;
+            foreach ($fieldtypes as $ft) {
+                if ($ft['name'] === $fieldtype) {
+                    $fieldtypeconfig = $ft;
+                    break;
+                }
+            }
+
+            $options = $fieldtypeconfig['options'] ?? [];
+            if ($field['type'] == 'textarea') {
+                $options['data-fieldid'] = $field['id'];
+                $options['data-assignmentid'] = $this->assignment->get_default_instance()->id;
+            }
 
             $mform->addElement($field['type'], $fieldname, $field['name'], $options);
 
