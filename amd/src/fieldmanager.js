@@ -170,7 +170,7 @@ class FieldManager {
                     name: nameInput.value.trim(),
                     type: typeSelect.value,
                     deleted: card.dataset.deleted == 1 ? true : false,
-                    required: requiredSelect.value == '1' ? true : false,
+                    required: requiredSelect.checked == true ? true : false,
                 };
                 if (tab) {
                     const tabNameInput = tab.querySelector('input[data-action="update-tab-name"]');
