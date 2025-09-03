@@ -265,7 +265,7 @@ class FieldManager {
         field.tabs = field.tabs || [];
         field.tabs.push({
             id: fieldId,
-            name: 'New Tab',
+            name: 'New Section',
         });
         await this.renderFields();
     }

@@ -130,6 +130,9 @@ class assign_submission_forms extends assign_submission_plugin {
         foreach ($fields as $field) {
             $fieldname = 'forms[' . $field['id'] . ']';
             $fieldtype = in_array($field['type'], $validtypes) ? $field['type'] : 'text';
+            if ($field['tabs'] && $field['tabs']['name']) {
+                $mform->addElement('header', 'tab_' . $field['id'], $field['tabs']['name']);
+            }
             if ($fieldtype == 'html') {
                 $mform->addElement('html', $field['name'], $field['name']);
                 continue;
