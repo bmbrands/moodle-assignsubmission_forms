@@ -329,7 +329,8 @@ class FieldManager {
         const {html, js} = await Templates.renderForPromise('assignsubmission_forms/fields', {
             fields: this.fields,
         });
-        Templates.replaceNodeContents(rootElement, html, js);
+        await Templates.replaceNodeContents(rootElement, html, js);
+        this.saveFields();
     }
 }
 
