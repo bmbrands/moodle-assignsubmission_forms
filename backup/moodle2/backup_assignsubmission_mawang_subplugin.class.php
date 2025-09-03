@@ -34,7 +34,7 @@ class backup_assignsubmission_forms_subplugin extends backup_subplugin {
         $subplugin = $this->get_subplugin_element();
         $subpluginwrapper = new backup_nested_element($this->get_recommended_name());
         $subpluginelement = new backup_nested_element('forms_value', ['id'], [
-            'fieldid', 'assignment', 'submissionid', 'data', 'usermodified', 'timecreated', 'timemodified'
+            'fieldid', 'assignment', 'submissionid', 'data', 'usermodified', 'timecreated', 'timemodified',
         ]);
 
         // Connect XML elements into the tree.

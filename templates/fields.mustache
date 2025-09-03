@@ -53,19 +53,20 @@
             </div>
 
             <div class="mb-2 d-flex">
-                <div class="custom-control custom-switch">
-                    <input type="checkbox" class="custom-control-input" id="field-required{{id}}" name="fieldrequired" {{#required}}checked{{/required}}>
-                    <label class="custom-control-label" for="field-required{{id}}">{{#str}}required, assignsubmission_forms{{/str}}</label>
-                </div>
-            </div>
-
-            <div class="mb-2 d-flex">
                 <label for="field-type">{{#str}}fieldtype, assignsubmission_forms{{/str}}</label>
                 <select class="form-control" id="field-type" name="fieldtype">
                     {{#fieldtypes}}
                         <option value="{{name}}" {{#selected}}selected{{/selected}}>{{label}}</option>
                     {{/fieldtypes}}
                 </select>
+            </div>
+
+            <div class="mb-2 d-flex">
+                <label for="field-name"><span class="visually-hidden">{{#str}}required, assignsubmission_forms{{/str}}</span></label>
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="field-required{{id}}" name="fieldrequired" {{#required}}checked{{/required}}>
+                    <label class="custom-control-label" for="field-required{{id}}">{{#str}}required, assignsubmission_forms{{/str}}</label>
+                </div>
             </div>
         </div>
     </div>

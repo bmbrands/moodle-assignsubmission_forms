@@ -29,41 +29,6 @@ import Notification from 'core/notification';
  * It allows for fetching and updating repository data.
  */
 export default class Repository {
-    /**
-     * Fetches the repository data.
-     *
-     * @param {Object} data The data to fetch.
-     * @returns {Promise<Object>} A promise that resolves with the repository data.
-     */
-    static getFields(data) {
-        return Ajax.call([{
-            methodname: 'assignsubmission_forms_get_fields',
-            args: data
-        }])[0].then((response) => {
-            if (response.error) {
-                Notification.exception(response.error);
-            }
-            return response;
-        });
-    }
-
-    /**
-     * Updates the repository data.
-     *
-     * @param {Object} data The data to update.
-     * @returns {Promise<Object>} A promise that resolves with the updated data.
-     */
-    static updateFields(data) {
-        return Ajax.call([{
-            methodname: 'assignsubmission_forms_update_fields',
-            args: data
-        }])[0].then((response) => {
-            if (response.error) {
-                Notification.exception(response.error);
-            }
-            return response;
-        });
-    }
 
     /**
      * Store the draft data.

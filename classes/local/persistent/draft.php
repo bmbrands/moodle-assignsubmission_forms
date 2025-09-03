@@ -60,7 +60,7 @@ class draft extends persistent {
                 'null' => NULL_NOT_ALLOWED,
                 'type' => PARAM_RAW,
                 'message' => new lang_string('invaliddata', 'assignsubmission_forms', 'value'),
-            ]
+            ],
         ];
     }
 }

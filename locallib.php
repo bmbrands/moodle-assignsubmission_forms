@@ -166,11 +166,11 @@ class assign_submission_forms extends assign_submission_plugin {
     }
 
         /**
-     * Get a configuration value for this plugin
-     *
-     * @param mixed $setting The config key (string) or null
-     * @return mixed string | false
-     */
+         * Get a configuration value for this plugin
+         *
+         * @param mixed $setting The config key (string) or null
+         * @return mixed string | false
+         */
     private function get_fields() {
 
         $fields = $this->get_config('fields');
