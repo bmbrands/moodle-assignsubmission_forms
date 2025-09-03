@@ -124,6 +124,7 @@ class assign_submission_forms extends assign_submission_plugin {
 
         // Add the fields to the form.
         foreach ($fields as $field) {
+            $needhiddenfield = false;
             $fieldname = 'forms[' . $field['id'] . ']';
             $fieldtype = in_array($field['type'], $validtypes) ? $field['type'] : 'text';
             if ($field['tabs'] && $field['tabs']['name']) {
@@ -144,9 +145,11 @@ class assign_submission_forms extends assign_submission_plugin {
             }
 
             $options = $fieldtypeconfig['options'] ?? [];
-            if ($field['type'] == 'textarea') {
+            if ($field['type'] == 'textarea' || $field['type'] == 'text') {
                 $options['data-fieldid'] = $field['id'];
                 $options['data-assignmentid'] = $this->assignment->get_default_instance()->id;
+            }else{
+                $needhiddenfield = true;
             }
 
             $mform->addElement($field['type'], $fieldname, $field['name'], $options);
@@ -167,6 +170,11 @@ class assign_submission_forms extends assign_submission_plugin {
             } else {
                 $mform->setDefault($fieldname, $value ? $value->get('data') : $draftdata);
                 $mform->setType($fieldname, PARAM_TEXT);
+            }
+
+            if ($needhiddenfield) {
+                $mform->addElement('hidden', 'hidden_' . $fieldname, '', ['id' => 'hidden_' . $fieldname, 'data-fieldid' => $field['id'], 'data-assignmentid' => $this->assignment->get_default_instance()->id]);
+                $mform->setType('hidden_' . $fieldname, PARAM_TEXT);
             }
         }
 

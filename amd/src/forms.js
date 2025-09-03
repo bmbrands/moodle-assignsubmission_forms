@@ -106,6 +106,9 @@ class forms {
     async bindEvents() {
         // Bind events here
         const textareas = this.rootElement.querySelectorAll('textarea');
+        const inputs = this.rootElement.querySelectorAll('input[type="text"]');
+        const checkboxes = this.rootElement.querySelectorAll('input[type="checkbox"]');
+        const dateSelectors = this.rootElement.querySelectorAll('select');
         const saveDraftDebounce = debounce(this.saveDraft, DEBOUNCE_TIMER);
 
         textareas.forEach(async(textarea) => {
@@ -113,6 +116,21 @@ class forms {
                 const wordCounter = document.getElementById(event.target.dataset.fieldid + '-wordcounter');
                 const count = event.target.value.split(/\s+/).filter((word) => word.length > 0).length;
                 wordCounter.innerHTML = await getString('words', 'assignsubmission_forms', count);
+                saveDraftDebounce(event.target);
+            });
+        });
+        inputs.forEach(async(input) => {
+            input.addEventListener('input', async(event) => {
+                saveDraftDebounce(event.target);
+            });
+        });
+        checkboxes.forEach(async(checkbox) => {
+            checkbox.addEventListener('input', async(event) => {
+                saveDraftDebounce(event.target);
+            });
+        });
+        dateSelectors.forEach(async(dateSelector) => {
+            dateSelector.addEventListener('input', async(event) => {
                 saveDraftDebounce(event.target);
             });
         });
@@ -134,16 +152,60 @@ class forms {
      * @param {HTMLElement} field The field to save.
      */
     async saveDraft(field) {
-        const statusdiv = document.getElementById(field.dataset.fieldid + '-status');
-        statusdiv.classList.add('saving');
+        let fieldname = '';
+        let hiddenfield = '';
+        let data = '';
+        let value = '';
 
-        const data = {
-            assignmentid: parseInt(field.dataset.assignmentid),
-            fieldid: parseInt(field.dataset.fieldid),
-            value: field.value,
-        };
+        if(field.type == 'textarea') {
+            const statusdiv = document.getElementById(field.dataset.fieldid + '-status');
+            statusdiv.classList.add('saving');
+        }else if(field.type == 'select-one') {
+            //check if there is "[day]", "[month]" or "[year]"
+            if(field.name.includes('[day]')) {
+                fieldname = field.name.replace('[day]', '');
+            }else if(field.name.includes('[month]')) {
+                fieldname = field.name.replace('[month]', '');
+            }else if(field.name.includes('[year]')) {
+                fieldname = field.name.replace('[year]', '');
+            }
+            hiddenfield = document.getElementById('hidden_' + fieldname);
+        }else{
+            hiddenfield = document.getElementById('hidden_' + field.name);
+        }
+        if(hiddenfield) {
+            value = '';
+            switch(field.type) {
+                case 'checkbox':
+                    value = field.checked;
+                    break;
+                case 'select-one':
+                    let day = document.querySelector('select[name="' + fieldname + '[day]"]').value;
+                    let month = document.querySelector('select[name="' + fieldname + '[month]"]').value;
+                    let year = document.querySelector('select[name="' + fieldname + '[year]"]').value;
+                    value = day + month + year;
+                    //convert to timestamp
+                    value = new Date(year, month - 1, day).getTime();
+                    break;
+                default:
+                    value = field.value;
+                    break;
+            }
+            data = {
+                assignmentid: parseInt(hiddenfield.dataset.assignmentid),
+                fieldid: parseInt(hiddenfield.dataset.fieldid),
+                value: value,
+            };
+        }else{
+            data = {
+                assignmentid: parseInt(field.dataset.assignmentid),
+                fieldid: parseInt(field.dataset.fieldid),
+                value: field.value,
+            };
+        }
         const response = await Repository.storeDraft(data);
-        if (response) {
+
+        if(field.type == 'textarea' && response) {
             statusdiv.classList.remove('saving');
         }
     }
