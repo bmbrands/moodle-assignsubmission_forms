@@ -4,16 +4,15 @@
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Version](https://img.shields.io/badge/Version-1.0-green.svg)](https://github.com/your-username/moodle-assignsubmission_forms/releases)
 
-A powerful and flexible Moodle assignment submission plugin that allows teachers to create custom forms for student submissions. This plugin extends Moodle's assignment module with dynamic form building capabilities, enabling educators to collect structured data from students through customizable form fields.
+A flexible Moodle assignment submission plugin that allows teachers to create custom forms for student submissions. This plugin extends Moodle's assignment module with form building capabilities, enabling educators to collect structured data from students through customizable form fields.
 
 ## 🚀 Features
 
-- **Dynamic Form Builder**: Create custom forms with drag-and-drop field management
-- **Multiple Field Types**: Support for text, textarea, select, checkbox, radio, date, file upload, and HTML content
+- **Form Builder**: Create custom forms with field management
+- **Multiple Field Types**: Support for text, textarea, date, checkbox, and HTML content
 - **Tabbed Interface**: Organize form fields into logical groups using tabs
 - **Real-time Auto-save**: Automatic draft saving every 5 seconds to prevent data loss
-- **Responsive Design**: Mobile-friendly interface that works across all devices
-- **Field Validation**: Built-in required field validation and data integrity checks
+- **Field Validation**: Built-in required field validation
 - **Moodle 4.5+ Compatible**: Fully compatible with modern Moodle versions
 
 ## 📋 Supported Field Types
@@ -22,12 +21,8 @@ A powerful and flexible Moodle assignment submission plugin that allows teachers
 |------------|-------------|----------|
 | **Text** | Single-line text input | Names, titles, short answers |
 | **Textarea** | Multi-line text input | Essays, descriptions, long-form content |
-| **Select** | Dropdown selection | Multiple choice, categories, options |
-| **Checkbox** | Multiple selection boxes | Skills, interests, requirements |
-| **Radio** | Single selection from options | Gender, status, single choice |
 | **Date** | Date picker | Birth dates, deadlines, schedules |
-| **Date & Time** | Date and time picker | Meeting times, appointments |
-| **File Picker** | File upload | Documents, images, attachments |
+| **Checkbox** | Multiple selection boxes | Skills, interests, requirements |
 | **HTML** | Static content display | Instructions, help text, formatting |
 
 ## 🛠️ Installation
@@ -118,7 +113,6 @@ A powerful and flexible Moodle assignment submission plugin that allows teachers
 Navigate to **Site administration** → **Plugins** → **Assignment submission plugins** → **Form**:
 
 - **Enable by default**: Automatically enable forms for new assignments
-- **Default field types**: Configure which field types are available by default
 
 ### Assignment-Level Settings
 
@@ -168,14 +162,11 @@ cd /path/to/moodle
 
 # Run PHPUnit tests
 vendor/bin/phpunit mod/assign/submission/forms/tests/
-
-# Run Behat tests (if configured)
-vendor/bin/behat --config=behat.yml --tags=@assignsubmission_forms
 ```
 
 ### Test Coverage
 
-The plugin includes comprehensive testing for:
+The plugin includes testing for:
 - Form field creation and management
 - Data validation and persistence
 - User interface interactions
@@ -269,26 +260,12 @@ This project is licensed under the GNU General Public License v3.0 - see the [LI
 - **Bas Brands**: bas@sonsbeekmedia.nl
 - **Jonas Rehkopp**: jonas.rehkopp@polizei.nrw.de
 
-## 📈 Roadmap
-
-### Version 1.1 (Planned)
-- [ ] Advanced field validation rules
-- [ ] Conditional field display
-- [ ] Export/import form templates
-- [ ] Enhanced mobile interface
-
-### Version 1.2 (Future)
-- [ ] Integration with Moodle analytics
-- [ ] Custom field types API
-- [ ] Multi-language form support
-- [ ] Advanced reporting features
-
 ## 🔄 Changelog
 
 ### Version 1.0 (2025-01-25)
 - Initial release
 - Basic form building capabilities
-- Support for 9 field types
+- Support for 5 field types
 - Tabbed interface
 - Auto-save functionality
 - Moodle 4.5+ compatibility
