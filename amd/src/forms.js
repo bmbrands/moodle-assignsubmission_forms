@@ -46,8 +46,61 @@ class forms {
                 {areaid: areaid, statusid: statusid, count: count});
             Templates.appendNodeContents(textarea.parentNode, html, js);
         });
+        //Modify the input-Element by adding two classes "needs-validation was-validated" by EventListener (onfocusout)
+        //And delete the classes on focus
+        this.addValidationClassesToInput();
+
         this.bindEvents();
 
+    }
+
+    /**
+     * Adds validation classes and event listeners to input and textarea elements
+     * for client-side validation feedback.
+     * But only if the field is required
+     */
+    addValidationClassesToInput() {
+        const setValidationState = (element) => {
+            if (element.value.trim() === '') {
+                element.classList.add('is-invalid');
+            } else {
+                element.classList.remove('is-invalid');
+            }
+        };
+
+        const handleFocusOut = (element) => {
+            element.classList.add('needs-validation', 'was-validated');
+            setValidationState(element);
+        };
+
+        const handleFocus = (element) => {
+            element.classList.remove('needs-validation', 'was-validated');
+            setValidationState(element);
+        };
+
+        const handleKeyUp = (element) => {
+            setValidationState(element);
+        };
+
+        // Handle input fields
+        const inputs = this.rootElement.querySelectorAll('input');
+        inputs.forEach(input => {
+            if (input.hasAttribute('aria-required')) {
+                input.addEventListener('focusout', () => handleFocusOut(input));
+                input.addEventListener('focus', () => handleFocus(input));
+                input.addEventListener('keyup', () => handleKeyUp(input));
+            }
+        });
+
+        // Handle textarea fields
+        const textareas = this.rootElement.querySelectorAll('textarea');
+        textareas.forEach(textarea => {
+            if (textarea.hasAttribute('aria-required')) {
+                textarea.addEventListener('focusout', () => handleFocusOut(textarea));
+                textarea.addEventListener('focus', () => handleFocus(textarea));
+                textarea.addEventListener('keyup', () => handleKeyUp(textarea));
+            }
+        });
     }
 
     async bindEvents() {
