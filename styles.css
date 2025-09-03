@@ -1,0 +1,36 @@
+.path-mod-assign .form-control-static[data-name="fieldmanager"] {
+    flex: 1 1 auto;
+}
+
+.path-mod-assign .form-control-static[data-name="fieldmanager"] .form-group label {
+    min-width: 200px;
+}
+table#submissions .assignsubmission_forms_summary .name,
+table#submissions .assignsubmission_forms_summary .value {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 200px;
+    font-size: 0.8rem;
+    margin: 0;
+}
+
+.forms-fieldmanager .card label {
+    min-width: 200px;
+}
+
+.saveconfirm .defaulticon .icon {
+    color: var(--success);
+}
+.saveconfirm .savingicon .icon {
+    color: var(--warning);
+}
+.saveconfirm .savingicon {
+    display: none;
+}
+.saveconfirm.saving .defaulticon {
+    display: none;
+}
+.saveconfirm.saving .savingicon {
+    display: inline-block;
+}
