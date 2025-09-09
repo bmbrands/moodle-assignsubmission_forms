@@ -35,27 +35,27 @@ class forms {
             [
                 'name' => 'html',
                 'label' => get_string('fieldtype_html', 'assignsubmission_forms'),
-                'options' => []
+                'options' => [],
             ],
             [
                 'name' => 'text',
                 'label' => get_string('fieldtype_text', 'assignsubmission_forms'),
-                'options' => ['size' => '140']
+                'options' => ['size' => '140'],
             ],
             [
                 'name' => 'textarea',
                 'label' => get_string('fieldtype_textarea', 'assignsubmission_forms'),
-                'options' => ['rows' => 10, 'cols' => 50]
+                'options' => ['rows' => 10, 'cols' => 50],
             ],
             [
                 'name' => 'date_selector',
                 'label' => get_string('fieldtype_date', 'assignsubmission_forms'),
-                'options' => ['startyear' => 2000, 'stopyear' => 2030]
+                'options' => ['startyear' => 2000, 'stopyear' => 2030],
             ],
             [
                 'name' => 'advcheckbox',
                 'label' => get_string('fieldtype_checkbox', 'assignsubmission_forms'),
-                'options' => []
+                'options' => [],
             ],
         ];
     }

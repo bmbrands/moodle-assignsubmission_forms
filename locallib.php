@@ -121,7 +121,6 @@ class assign_submission_forms extends assign_submission_plugin {
         $fieldtypes = forms::get_valid_fieldtypes();
         $validtypes = array_column($fieldtypes, 'name');
 
-
         // Add the fields to the form.
         foreach ($fields as $field) {
             $needhiddenfield = false;
