@@ -29,7 +29,7 @@ import {debounce} from 'core/utils';
 
 const DEBOUNCE_TIMER = 2000;
 
-class forms {
+class Forms {
     constructor() {
         this.rootElement = document.querySelector('.forms-form');
         this.init();
@@ -46,8 +46,6 @@ class forms {
                 {areaid: areaid, statusid: statusid, count: count});
             Templates.appendNodeContents(textarea.parentNode, html, js);
         });
-        //Modify the input-Element by adding two classes "needs-validation was-validated" by EventListener (onfocusout)
-        //And delete the classes on focus
         this.addValidationClassesToInput();
 
         this.bindEvents();
@@ -152,64 +150,28 @@ class forms {
      * @param {HTMLElement} field The field to save.
      */
     async saveDraft(field) {
-        let fieldname = '';
-        let hiddenfield = '';
-        let data = '';
-        let value = '';
-        let statusdiv = '';
+        const rootElement = document.querySelector('.forms-form');
+        const assignmentid = rootElement.querySelector('input[name="instanceid"]').value;
+        const fieldid = field.name.match(/\[(\d+)\]/)[1];
 
-        if(field.type == 'textarea') {
-            statusdiv = document.getElementById(field.dataset.fieldid + '-status');
-            statusdiv.classList.add('saving');
-        }else if(field.type == 'select-one') {
-            //check if there is "[day]", "[month]" or "[year]"
-            if(field.name.includes('[day]')) {
-                fieldname = field.name.replace('[day]', '');
-            }else if(field.name.includes('[month]')) {
-                fieldname = field.name.replace('[month]', '');
-            }else if(field.name.includes('[year]')) {
-                fieldname = field.name.replace('[year]', '');
-            }
-            hiddenfield = document.getElementById('hidden_' + fieldname);
-        }else{
-            hiddenfield = document.getElementById('hidden_' + field.name);
+        let value = field.value;
+        if (field.name.includes('[day]') || field.name.includes('[month]') || field.name.includes('[year]')) {
+            const day = rootElement.querySelector(`select[name="forms[${fieldid}][day]"]`).value;
+            const month = rootElement.querySelector(`select[name="forms[${fieldid}][month]"]`).value;
+            const year = rootElement.querySelector(`select[name="forms[${fieldid}][year]"]`).value;
+            // Get me a unix timestamp in the format: 1757372400
+            value = new Date(year, month - 1, day).getTime() / 1000;
         }
-        if(hiddenfield) {
-            value = '';
-            switch(field.type) {
-                case 'checkbox':
-                    value = field.checked;
-                    break;
-                case 'select-one':
-                    let day = document.querySelector('select[name="' + fieldname + '[day]"]').value;
-                    let month = document.querySelector('select[name="' + fieldname + '[month]"]').value;
-                    let year = document.querySelector('select[name="' + fieldname + '[year]"]').value;
-                    value = day + month + year;
-                    //convert to timestamp
-                    value = new Date(year, month - 1, day).getTime();
-                    break;
-                default:
-                    value = field.value;
-                    break;
-            }
-            data = {
-                assignmentid: parseInt(hiddenfield.dataset.assignmentid),
-                fieldid: parseInt(hiddenfield.dataset.fieldid),
-                value: value,
-            };
-        }else{
-            data = {
-                assignmentid: parseInt(field.dataset.assignmentid),
-                fieldid: parseInt(field.dataset.fieldid),
-                value: field.value,
-            };
-        }
-        const response = await Repository.storeDraft(data);
 
-        if(field.type == 'textarea' && response) {
-            statusdiv.classList.remove('saving');
-        }
+        const data = {
+            assignmentid: parseInt(assignmentid),
+            fieldid: parseInt(fieldid),
+            value: value,
+        };
+
+        await Repository.storeDraft(data);
     }
+
 }
 
 /*
@@ -218,7 +180,7 @@ class forms {
  * @param {String} courseid The courseid.
  */
 const init = () => {
-    new forms();
+    new Forms();
 };
 
 export default {

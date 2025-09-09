@@ -125,7 +125,8 @@ class assign_submission_forms extends assign_submission_plugin {
         foreach ($fields as $field) {
             $needhiddenfield = false;
             $fieldname = 'forms[' . $field['id'] . ']';
-            $fieldtype = in_array($field['type'], $validtypes) ? $field['type'] : 'text';
+            $fieldtype = $field['type'];
+            $fieldtype = in_array($fieldtype, $validtypes) ? $fieldtype : 'text';
             if ($field['tabs'] && $field['tabs']['name']) {
                 $mform->addElement('header', 'tab_' . $field['id'], $field['tabs']['name']);
                 $mform->setExpanded('tab_' . $field['id'], true);
@@ -145,35 +146,31 @@ class assign_submission_forms extends assign_submission_plugin {
             }
 
             $options = $fieldtypeconfig['options'] ?? [];
-            if ($field['type'] == 'textarea' || $field['type'] == 'text') {
-                $options['data-fieldid'] = $field['id'];
-                $options['data-assignmentid'] = $this->assignment->get_default_instance()->id;
-            }else{
-                $needhiddenfield = true;
+
+            $mform->addElement($fieldtype, $fieldname, $field['name'], $options);
+            if ($fieldtype === 'text') {
+                $mform->setType($fieldname, PARAM_TEXT);
             }
-            $mform->addElement($field['type'], $fieldname, $field['name'], $options);
 
             // Add required validation if field is marked as required
             if ($field['required']) {
                 $mform->addRule($fieldname, get_string('required'), 'required', null, 'client');
             }
-            $value = value::get_record(['submissionid' => $submission->id, 'fieldid' => $field['id']]);
+
             $draft = draft::get_record([
                 'assignment' => $this->assignment->get_default_instance()->id,
                 'fieldid' => $field['id'],
                 'userid' => $USER->id,
             ]);
-            $draftdata = $draft ? $draft->get('data') : '';
-            if (in_array($field['type'], ['date_selector', 'date_time_selector'])) {
-                $mform->setDefault($fieldname, $value ? intval($value->get('data')) : time());
-            } else {
-                $mform->setDefault($fieldname, $value ? $value->get('data') : $draftdata);
-                $mform->setType($fieldname, PARAM_TEXT);
-            }
+            $fieldvalue = $draft ? $draft->get('data') : '';
 
-            if ($needhiddenfield) {
-                $mform->addElement('hidden', 'hidden_' . $fieldname, '', ['id' => 'hidden_' . $fieldname, 'data-fieldid' => $field['id'], 'data-assignmentid' => $this->assignment->get_default_instance()->id]);
-                $mform->setType('hidden_' . $fieldname, PARAM_TEXT);
+            $value = value::get_record(['submissionid' => $submission->id, 'fieldid' => $field['id']]);
+            if ($value) {
+                // If there is a submission value, we use that.
+                $fieldvalue = $value->get('data');
+            }
+            if ($fieldvalue) {
+                $mform->setDefault($fieldname, $fieldvalue);
             }
         }
 

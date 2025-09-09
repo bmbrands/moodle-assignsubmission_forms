@@ -50,7 +50,6 @@ class restore_assignsubmission_forms_subplugin extends restore_subplugin {
 
         $data->assignment = $this->get_new_parentid('assign');
         $oldsubmissionid = $data->submissionid;
-
         // The mapping is set in the restore for the core assign activity
         // when a submission node is processed.
         $data->submissionid = $this->get_mappingid('submission', $data->submissionid);
@@ -58,12 +57,6 @@ class restore_assignsubmission_forms_subplugin extends restore_subplugin {
         // Update usermodified if user mapping exists.
         if (!empty($data->usermodified)) {
             $data->usermodified = $this->get_mappingid('user', $data->usermodified);
-        }
-
-        // Ensure we have valid IDs before inserting.
-        if (empty($data->submissionid) || empty($data->assignment)) {
-            // Skip this record if we don't have valid mappings.
-            return;
         }
 
         $newitemid = $DB->insert_record('assignsubmission_forms_value', $data);

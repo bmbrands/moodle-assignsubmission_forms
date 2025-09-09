@@ -18,7 +18,7 @@
  * Version information for forms
  *
  * @package    assignsubmission_forms
- * @copyright  2025 Bas Brands <bas@sonsbeekmedia.nl>, Jonas Rehkopp <jonas.rehkopp@polizei.nrw.de>
+ * @copyright  2025 Bas Brands <bas@sonsbeekmedia.nl>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
