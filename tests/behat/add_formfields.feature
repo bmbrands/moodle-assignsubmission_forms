@@ -55,7 +55,7 @@ Feature: Testing all form field types in assignsubmission_forms
     And I set field "5" as required
     And I click on "Save and display" "button"
     Then I should see "Test form fields"
-    And I am on the "Test form fields" "assign activity editing" page logged in as teacher1
+    And I am on the "Test form fields" "assign activity" page logged in as student1
     And I press "Add submission"
     Then I should see "Essay Question"
     And I set the field "Essay Question" to "This is my essay response with multiple paragraphs and detailed analysis."
@@ -64,4 +64,3 @@ Feature: Testing all form field types in assignsubmission_forms
     And I should see "Instructions"
     And I should see "Due Date"
     And I should see "Agreement"
-    And I wait "10" seconds

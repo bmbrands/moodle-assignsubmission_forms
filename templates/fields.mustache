@@ -24,7 +24,7 @@
         "fields": [
             {
                 "id": 1,
-                "name": "Field name",
+                "name": "Field name 1",
                 "num": 1,
                 "fieldtypes": [
                     {
@@ -44,6 +44,31 @@
                     {
                         "id": 1,
                         "name": "Tab 1"
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "name": "Field name 2",
+                "num": 2,
+                "fieldtypes": [
+                    {
+                        "name": "textarea",
+                        "label": "Textarea",
+                        "selected": true
+                    },
+                    {
+                        "name": "text",
+                        "label": "Text"
+                    }
+                ],
+                "type": "textarea",
+                "required": false,
+                "deleted": false,
+                "tabs": [
+                    {
+                        "id": 2,
+                        "name": "Tab 2"
                     }
                 ]
             }
@@ -75,13 +100,13 @@
         </div>
         <div class="card-body">
             <div class="mb-2 d-flex">
-                <label for="field-name">{{#str}}fieldname, assignsubmission_forms{{/str}}</label>
-                <input type="text" class="form-control" id="field-name" name="fieldname" value="{{name}}" placeholder="{{#str}}fieldnameplaceholder, assignsubmission_forms{{/str}}">
+                <label for="field-name-{{id}}">{{#str}}fieldname, assignsubmission_forms{{/str}}</label>
+                <input type="text" class="form-control" id="field-name-{{id}}" name="fieldname" value="{{name}}" placeholder="{{#str}}fieldnameplaceholder, assignsubmission_forms{{/str}}">
             </div>
 
             <div class="mb-2 d-flex">
-                <label for="field-type">{{#str}}fieldtype, assignsubmission_forms{{/str}}</label>
-                <select class="form-control" id="field-type" name="fieldtype">
+                <label for="field-type-{{id}}">{{#str}}fieldtype, assignsubmission_forms{{/str}}</label>
+                <select class="form-control" id="field-type-{{id}}" name="fieldtype">
                     {{#fieldtypes}}
                         <option value="{{name}}" {{#selected}}selected{{/selected}}>{{label}}</option>
                     {{/fieldtypes}}
@@ -89,10 +114,10 @@
             </div>
 
             <div class="mb-2 d-flex">
-                <label for="field-name"><span class="visually-hidden">{{#str}}required, assignsubmission_forms{{/str}}</span></label>
+                <label for="field-required-{{id}}"><span class="visually-hidden">{{#str}}required, assignsubmission_forms{{/str}}</span></label>
                 <div class="custom-control custom-switch">
-                    <input type="checkbox" class="custom-control-input" id="field-required{{id}}" name="fieldrequired" {{#required}}checked{{/required}}>
-                    <label class="custom-control-label" for="field-required{{id}}">{{#str}}required, assignsubmission_forms{{/str}}</label>
+                    <input type="checkbox" class="custom-control-input" id="field-required-{{id}}" name="fieldrequired" {{#required}}checked{{/required}}>
+                    <label class="custom-control-label" for="field-required-{{id}}">{{#str}}required, assignsubmission_forms{{/str}}</label>
                 </div>
             </div>
         </div>
