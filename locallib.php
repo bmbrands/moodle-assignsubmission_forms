@@ -110,7 +110,7 @@ class assign_submission_forms extends assign_submission_plugin {
      */
     public function get_form_elements($submission, MoodleQuickForm $mform, stdClass $data) {
         global $OUTPUT, $USER;
-        // Configured settings from JSON
+        // Configured settings from JSON.
 
         $fields = $this->get_fields();
         $mform->updateAttributes(['class' => 'mform full-width-labels forms-form']);
@@ -136,7 +136,7 @@ class assign_submission_forms extends assign_submission_plugin {
                 continue;
             }
 
-            // Find the matching field type configuration
+            // Find the matching field type configuration.
             $fieldtypeconfig = null;
             foreach ($fieldtypes as $ft) {
                 if ($ft['name'] === $fieldtype) {
@@ -152,7 +152,6 @@ class assign_submission_forms extends assign_submission_plugin {
                 $mform->setType($fieldname, PARAM_TEXT);
             }
 
-            // Add required validation if field is marked as required
             if ($field['required']) {
                 $mform->addRule($fieldname, get_string('required'), 'required', null, 'client');
             }

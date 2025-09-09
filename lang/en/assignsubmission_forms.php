@@ -62,6 +62,5 @@ $string['saveconfirm'] = 'A draft of your input is saved every 5 seconds.';
 $string['saved'] = 'Saved';
 $string['savefields'] = 'Save fields';
 $string['saving'] = 'Saving...';
-$string['selectfieldtype'] = 'Select field type';
 $string['selectfieldtype'] = 'Select field type...';
 $string['words'] = 'Words {$a}';

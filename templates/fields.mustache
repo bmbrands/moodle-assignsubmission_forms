@@ -21,6 +21,33 @@
 
     Example context (json):
     {
+        "fields": [
+            {
+                "id": 1,
+                "name": "Field name",
+                "num": 1,
+                "fieldtypes": [
+                    {
+                        "name": "text",
+                        "label": "Text",
+                        "selected": true
+                    },
+                    {
+                        "name": "date",
+                        "label": "Date"
+                    }
+                ],
+                "type": "text",
+                "required": true,
+                "deleted": false,
+                "tabs": [
+                    {
+                        "id": 1,
+                        "name": "Tab 1"
+                    }
+                ]
+            }
+        ]
     }
 }}
 {{#fields}}
